@@ -16,7 +16,6 @@ Arg:
   if not os.path.isdir(file_path):
     os.makedirs(file_path)
 
-  zip_path = './severstal-steel-defect-detection.zip'
   zf = zipfile.ZipFile(zip_path, 'r')
   zf.extractall(file_path)
 
