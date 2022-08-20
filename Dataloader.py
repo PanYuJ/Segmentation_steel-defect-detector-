@@ -21,7 +21,8 @@ Arg:
 
   # Bulid data list in pandas Dataframe
   ## Colume of list: ImageId_ClassId, ClassId, EncodedPixels
-  df = pd.read_csv("./kaggle/train.csv")
+  csv_path = os.path.join(file_path, 'train.csv')
+  df = pd.read_csv(csv_path)
 
   df['ClassId'] = df['ClassId'].astype(int)
   df.sort_values(by=['ImageId'])
