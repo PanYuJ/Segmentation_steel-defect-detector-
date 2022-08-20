@@ -15,9 +15,9 @@ Arg:
   # Extract zip file including image and label after download from Kaggle  
   if not os.path.isdir(file_path):
     os.makedirs(file_path)
-  if os.path.splitext(zip_path):
-    zf = zipfile.ZipFile(zip_path, 'r')
-    zf.extractall(file_path)
+  
+  zf = zipfile.ZipFile(zip_path, 'r')
+  zf.extractall(file_path)
 
   # Bulid data list in pandas Dataframe
   ## Colume of list: ImageId_ClassId, ClassId, EncodedPixels
