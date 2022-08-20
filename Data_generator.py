@@ -3,7 +3,7 @@ import imgaug.augmenters as iaa
 import cv2
 from utils.rle_parse import rle2mask
 
-
+#Image agumentation 
 aug2 = iaa.Fliplr(0.5)
 aug3 = iaa.Flipud(0.5)
 aug4 = iaa.Emboss(alpha=(1), strength=1)
@@ -12,6 +12,12 @@ aug6 = iaa.BilateralBlur(d=(3, 10), sigma_color=(10, 250), sigma_space=(10, 250)
 
 class DataGenerator(keras.utils.all_utils.Sequence):
   def __init__(self, df, img_path, batch_size = 8, subset="train", shuffle=False, preprocess=None, info={}, aug_mode=False):
+    """
+    Arg:
+      df: training dataframe.
+      img_path: The path of raw image repository.
+      preprocess: The data preprocessing function.
+    """
     super().__init__()
     self.df = df
     self.shuffle = shuffle
