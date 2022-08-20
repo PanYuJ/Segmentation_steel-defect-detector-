@@ -3,6 +3,7 @@ import imgaug.augmenters as iaa
 import cv2
 from utils.rle_parse import rle2mask
 
+
 aug2 = iaa.Fliplr(0.5)
 aug3 = iaa.Flipud(0.5)
 aug4 = iaa.Emboss(alpha=(1), strength=1)
@@ -52,9 +53,6 @@ class DataGenerator(keras.utils.all_utils.Sequence):
         for j in range(4):
           y[i,:,:,j] = rle2mask(self.df['e'+str(j+1)].iloc[indexes[i]])
         y[i,:,:,4] = 1-y[i,:,:,:4].sum(-1)
-
-      X[i,] = aug6.augment_image(X[i,])
-      y[i,] = aug3.augment_image(y[i,])
 
         if self.aug_mode == True:       
           a = np.random.uniform()
