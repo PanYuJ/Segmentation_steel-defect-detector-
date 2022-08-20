@@ -1,6 +1,7 @@
 import keras
 import imgaug.augmenters as iaa
 import cv2
+from utils.rle_parse import rle2mask
 
 aug2 = iaa.Fliplr(0.5)
 aug3 = iaa.Flipud(0.5)
