@@ -9,9 +9,8 @@ aug4 = iaa.Emboss(alpha=(1), strength=1)
 aug5 = iaa.DirectedEdgeDetect(alpha=(0.8), direction=(1.0))
 aug6 = iaa.BilateralBlur(d=(3, 10), sigma_color=(10, 250), sigma_space=(10, 250))
 
-path = '/content/kaggle/'
 class DataGenerator(keras.utils.all_utils.Sequence):
-  def __init__(self, df, batch_size = 8, subset="train", shuffle=False, preprocess=None, info={}, aug_mode=False):
+  def __init__(self, df, img_path, batch_size = 8, subset="train", shuffle=False, preprocess=None, info={}, aug_mode=False):
     super().__init__()
     self.df = df
     self.shuffle = shuffle
@@ -20,13 +19,12 @@ class DataGenerator(keras.utils.all_utils.Sequence):
     self.preprocess = preprocess
     self.info = info
     self.aug_mode = aug_mode
+    self.img_path = img_path
     
-
-        
     if self.subset == "train":
-      self.data_path = path + 'train_images/'
+      self.data_path = img_path + 'train_images/'
     elif self.subset == "test":
-      self.data_path = path + 'test_images/'
+      self.data_path = img_path + 'test_images/'
     self.on_epoch_end()
 
   def __len__(self):
