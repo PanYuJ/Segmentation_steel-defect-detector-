@@ -3,10 +3,7 @@ import Dataloader.loader as loader
 import Data_generator.DataGenerator as DataGenerator
 from keras.callbacks import ModelCheckpoint, CSVLogger, LearningRateScheduler
 import os
-
-def preprocess(img):
-  img = img/255.0
-  return img
+import utils.preprocess as preprocess
 
 # Create ResUnet model
 BACKBONE = 'resnet34'
@@ -40,9 +37,12 @@ log_csv = CSVLogger('./log/Unet50_cce-dice_preimage_aug4_preprocess255_adam/logg
 es = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience= 10 , mode = 'min')
 callback_list = [log_csv, es, lrate]
 
+# Define preprocess for data
+preprocess_input = preprocess
+
 # Prepare training data and validation data.
-train_batches = DataGenerator(df=train_df[:idx], file_path=file_path, shuffle=True,  preprocess=preprocess, agu_mode=True)
-val_batches = DataGenerator(df=train_df[idx:], file_path=file_path, shuffle=False,  preprocess=preprocess, agu_mode=False)
+train_batches = DataGenerator(df=train_df[:idx], file_path=file_path, shuffle=True,  preprocess=preprocess_input, agu_mode=True)
+val_batches = DataGenerator(df=train_df[idx:], file_path=file_path, shuffle=False,  preprocess=preprocess_input, agu_mode=False)
 
 history = model.fit(train_batches, validation_data = valid_batches, epochs=200 ,verbose=1, callbacks=callback_list)
 
