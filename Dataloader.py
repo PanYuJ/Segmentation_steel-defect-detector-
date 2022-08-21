@@ -5,7 +5,7 @@ import sklearn
 
 # https://www.kaggle.com/competitions/severstal-steel-defect-detection
 
-def loader(file_path, zip_path):
+def loader(file_path):
  
 """
 Arg:
@@ -16,9 +16,6 @@ Arg:
   if not os.path.isdir(file_path):
     os.makedirs(file_path)
   
-  zf = zipfile.ZipFile(zip_path, 'r')
-  zf.extractall(file_path)
-
   # Bulid data list in pandas Dataframe
   ## Colume of list: ImageId_ClassId, ClassId, EncodedPixels
   csv_path = os.path.join(file_path, 'train.csv')
