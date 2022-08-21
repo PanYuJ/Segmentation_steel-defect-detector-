@@ -2,12 +2,11 @@
 import tensorflow as tf
 import segmentation_models
 from segmentation_models import Unet
-from segmentation_models import get_preprocessing
 
 segmentation_models.set_framework('tf.keras')
 segmentation_models.framework()
 
-def model_unet(BACKBONE, input_shape, classes):
+def model_unet(BACKBONE='resnet34', input_shape=(256,1600,1) , classes=5):
   
   """
   Arg:
@@ -36,7 +35,6 @@ def model_unet(BACKBONE, input_shape, classes):
   # LOAD UNET WITH PRETRAINING FROM IMAGENET
 
   backbone = BACKBONE
-  preprocess_input = get_preprocessing(BACKBONE)
   model = Unet(BACKBONE, input_shape=input_shape, classes=classes, activation='softmax', encoder_weights=None)
   model.compile(optimizer=adam, loss=cce_dice, metrics=[iou_score])
   
